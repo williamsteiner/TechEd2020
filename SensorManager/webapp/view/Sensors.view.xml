@@ -2,7 +2,7 @@
 my notes:
 
 data from json file obj: "sensors": [
-which has customer and location.  group by customer -- CustomListItem will show all location items for parent
+which has customer and location.  group by customer,   CustomListItem will show all location items for parent
 
 -->
 
@@ -14,6 +14,8 @@ which has customer and location.  group by customer -- CustomListItem will show 
     xmlns:f="sap.f"
 
     displayBlock="true">
+
+ 
     <Page id="page" title="{i18n>title}">
         <content>
             <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
@@ -23,8 +25,9 @@ which has customer and location.  group by customer -- CustomListItem will show 
 
 
             <f:GridList id="sensorsList" 
-            items="{path: 'sensorModel>/sensors', sorter: {path:'customer', group:true, descending: false}}"
-            noDataText="No sensors">
+                items="{path: 'sensorModel>/sensors', sorter: {path:'customer', group:true, descending: false}}"
+                noDataText="{i18n>noSensorDataText}"
+                >
 
                 <f:customLayout>
                     <grid:GridBoxLayout/>
