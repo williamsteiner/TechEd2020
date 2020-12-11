@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <!-- pull from json object customers. StandardListItem uses name ele of customers obj
+    "customers": [
+        {
+            "name": "LITL"
+        },
+    -->
+    <SelectDialog
+        title="{i18n>titleSelectCustomer}"
+        contentHeight="38.3%"
+        rememberSelections="true"
+
+         confirm=".onCustomerSelectConfirm"
+         liveChange=".onCustomerSelectChange"
+
+        items="{
+            path: 'sensorModel>/customers',
+            sorter: {path:'name'}
+        }">
+        <StandardListItem title="{sensorModel>name}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

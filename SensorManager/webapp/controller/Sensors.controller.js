@@ -7,8 +7,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/IconColor",
     "sap/m/MessageToast",
-    "sap/ui/model/Filter"
-    ], function (Controller, IconColor, MessageToast, Filter) {
+    "sap/ui/model/Filter",
+    "sap/ui/core/Fragment"
+], function (Controller, IconColor, MessageToast, Filter, Fragment) {
     "use strict";
 
         return Controller.extend("keepcool.SensorManager.controller.Sensors", {
@@ -16,6 +17,10 @@ sap.ui.define([
                 this.getSensorModel().dataLoaded().then(function() {
                     MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("msgSensorDataLoaded"), { closeOnBrowserNavigation: false });
                 }.bind(this));
+
+                this._aCustomerFilters = [];
+                this._aStatusFilters = [];
+
             },
 
             getSensorModel: function(){
@@ -34,11 +39,10 @@ sap.ui.define([
                     return IconColor.Negative;
                 }
             },
-//        
+//       
+// icon bar - icon selected - cold, hot...
             onSensorSelect: function (oEvent) {
-                this._aCustomerFilters = [];
-                this._aStatusFilters = [];
-
+ 
                 /*
                 oBinding gets list: <f:GridList id="sensorsList" 
                 key is pulled form IconTabBar/items/IconTabFilter/key   -- paramater from the onlick event
@@ -57,6 +61,9 @@ sap.ui.define([
                         <f:GridList id="sensorsList" 
                             items="{path: 'sensorModel>/sensors'            
                 */
+
+                console.log('icon key: ' + oEvent.getParameter("key"));
+
                 var oBinding = this.getView().byId("sensorsList").getBinding("items"),
                     sKey = oEvent.getParameter("key"),
                     oThreshold = this.getSensorModel().getProperty("/threshold");
@@ -68,13 +75,64 @@ sap.ui.define([
                 } else if (sKey === "Hot") {
                     this._aStatusFilters = [new Filter("temperature/value", "GT", oThreshold.hot, false)];
                 } else {
-                    this._aStatusFilters = [];
+                    this._aStatusFilters = []; // All
                 }
 
-                oBinding.filter(this._aStatusFilters);
+                //oBinding.filter(this._aStatusFilters);
+                oBinding.filter(this._aStatusFilters.concat(this._aCustomerFilters));
+            },
+
+// when select customer filter icon (top right corner) selected open fragment dialog (popup)
+// loads fragment xml
+            onCustomerSelect: function (oEvent) {
+                if (this._oDialog) {
+                    this._oDialog.open();
+                } else {
+                    Fragment.load({
+                        type: "XML",
+                        name: "keepcool.SensorManager.view.CustomerSelectDialog",
+                        controller: this
+                    }).then(function(oDialog) {
+                        this._oDialog = oDialog;
+                        this._oDialog.setModel(this.getSensorModel(), "sensorModel");
+                        this._oDialog.setModel(this.getView().getModel("i18n"), "i18n");
+                        this._oDialog.setMultiSelect(true);
+                        this._oDialog.open();
+                    }.bind(this));
+                }
+            },
+            //
+
+            // livechange from fragment  --- search input field for customer
+            /*  builds selection list from json customers obj
+                items="{
+                path: 'sensorModel>/customers',
+                sorter: {path:'name'}
+            }">
+
+            live change - as you type the below filter continues to fire to filter on list of customer selections
+            */
+            onCustomerSelectChange: function(oEvent) {
+                var sValue = oEvent.getParameter("value"); 
+                 alert('value: ' + sValue);
+                var oFilter = new Filter("name", "Contains", sValue);
+                // get xml list bidnding
+                var oBinding = oEvent.getSource().getBinding("items");
+                oBinding.filter([oFilter]);
+            }            ,
+            //
+            // fired from fragment -- uses both filters
+            onCustomerSelectConfirm: function(oEvent) {
+                var aSelectedItems = oEvent.getParameter("selectedItems");
+                 alert('aSelectedItems: ' + aSelectedItems);
+                var oBinding = this.getView().byId("sensorsList").getBinding("items");
+                this._aCustomerFilters = aSelectedItems.map(function(oItem) {
+                    return new Filter("customer", "EQ", oItem.getTitle());
+                });
+                oBinding.filter(this._aCustomerFilters.concat(this._aStatusFilters));
             }
 
 
-
+//--//
         });
     });
