@@ -1,3 +1,11 @@
+<!--
+my notes:
+
+data from json file obj: "sensors": [
+which has customer and location.  group by customer -- CustomListItem will show all location items for parent
+
+-->
+
 <mvc:View
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
