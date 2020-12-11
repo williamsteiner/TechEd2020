@@ -14,7 +14,15 @@
 		"sourceTemplate": {
 			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
 			"version": "1.40.12"
-		}
+        },
+        
+        "dataSources": {
+            "sensorSource": {
+                "type": "JSON",
+                "uri": "./localService/sensors.json"
+            }
+        }
+
 	},
 	
 	"sap.ui": {
@@ -64,7 +72,13 @@
 				"settings": {
 					"bundleName": "keepcool.SensorManager.i18n.i18n"
 				}
-			}
+            },
+            
+            "sensorModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "sensorSource"
+            }
+
 		},
 		"resources": {
 			"css": [{
