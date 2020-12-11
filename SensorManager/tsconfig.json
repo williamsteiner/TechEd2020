@@ -4,6 +4,8 @@
     "noEmit": true,
     "checkJs": true,
     "allowJs": true,
-    "types": [    ]
+    "types": [
+      "@sapui5/ts-types"
+    ]
   }
 }
