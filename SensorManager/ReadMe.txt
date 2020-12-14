@@ -3,12 +3,20 @@ changed manifest uri for json data in order to deploy and test
 from "olduri": "./localService/sensors.json",
 to "uri": "https://cors-anywhere.herokuapp.com/https://docrepo.oldworldind.net/sensors.json"
 
+-- json data on owi server
+https://docrepo.oldworldind.net/sensors.json
+
 -- build
  right click on mta.yaml file
 
 -- deploy
 change target at bottom footer - left side to correct target env 
  right click on mta_archives mtar file
+
+-- change mta.yaml version
+
+-- change xs-app.jon to route to new page vs index.html
+ "welcomeFile": "keepcoolSensorManager",
 
 
  -- b2c_test deployed app url

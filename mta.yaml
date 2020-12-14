@@ -1,6 +1,6 @@
 _schema-version: "3.2"
 ID: TechEd2020
-version: 0.0.7
+version: 0.0.11
 modules:
 - name: teched2020-approuter
   type: approuter.nodejs

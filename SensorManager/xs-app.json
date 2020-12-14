@@ -1,6 +1,9 @@
 {
-  "welcomeFile": "/index.html",
+   
   "authenticationMethod": "none",
+
+  "welcomeFile": "keepcoolSensorManager",
+
   "logout": {
     "logoutEndpoint": "/do/logout"
   },
