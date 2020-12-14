@@ -28,7 +28,7 @@ https://b2btest-workspaces-ws-6t5vz-app1.us10.applicationstudio.cloud.sap/keepco
 
 ---------------------- github notes -------------------------------
 repo: https://github.com/williamsteiner/TechEd2020.git
-text me for the credentials.
+text me for the credentials. name: williamsteiner
 
 -- studio push and tag
 
