@@ -19,7 +19,8 @@
         "dataSources": {
             "sensorSource": {
                 "type": "JSON",
-                "uri": "./localService/sensors.json"
+                
+                "uri": "https://cors-anywhere.herokuapp.com/https://docrepo.oldworldind.net/sensors.json"
             }
         }
 
@@ -104,11 +105,24 @@
                 "name": "RouteSensors",
                 "pattern": "",
                 "target": ["TargetSensors"]
+            },
+
+            {
+                "name": "RouteSensorStatus",
+                "pattern": "sensor/{index}",
+                "target": ["TargetSensorStatus"]
             }],
+
             "targets": {
                 "TargetSensors": {
                     "viewId": "Sensors",
                     "viewName": "Sensors"
+                },
+
+                "TargetSensorStatus": {
+                    "viewId": "sensorStatus",
+                    "viewName": "SensorStatus",
+                    "viewLevel": 2
                 }
             }
 }

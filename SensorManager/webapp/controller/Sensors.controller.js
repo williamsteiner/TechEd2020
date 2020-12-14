@@ -26,9 +26,13 @@ sap.ui.define([
             getSensorModel: function(){
                 return this.getOwnerComponent().getModel("sensorModel");
             },
-//
+
+// xml files icon formatter
+/*json obj: "threshold": {        "warm": 4,        "hot": 5                        */
             formatIconColor: function(iTemperature) {
-                var oThreshold = this.getSensorModel().getProperty("/threshold");
+                //console.log("icon temperature: " + iTemperature); 
+                // ui value loaded from json obj sensors.temperature = path: 'sensorModel>temperature/value'
+                var oThreshold = this.getSensorModel().getProperty("/threshold");  // get json obj threshold
                 if (!oThreshold) {
                     return IconColor.Neutral;
                 } else if (iTemperature < oThreshold.warm) {
@@ -130,9 +134,14 @@ sap.ui.define([
                     return new Filter("customer", "EQ", oItem.getTitle());
                 });
                 oBinding.filter(this._aCustomerFilters.concat(this._aStatusFilters));
+            },
+
+            navToSensorStatus: function(oEvent) {
+                var iSensorIndex = oEvent.getSource().getBindingContext("sensorModel").getProperty("index");
+                this.getOwnerComponent().getRouter().navTo("RouteSensorStatus", {index: iSensorIndex});
             }
 
 
-//--//
+//-- end of Sensors functions //
         });
     });
