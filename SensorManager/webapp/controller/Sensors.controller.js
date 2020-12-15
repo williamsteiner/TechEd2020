@@ -15,11 +15,15 @@ sap.ui.define([
         return Controller.extend("keepcool.SensorManager.controller.Sensors", {
             onInit: function() {
                 this.getSensorModel().dataLoaded().then(function() {
+
+                    console.log('*** log 1a: ' + JSON.stringify(this.getOwnerComponent().getModel("sensorModel").getObject("/")));
+
                     MessageToast.show(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("msgSensorDataLoaded"), { closeOnBrowserNavigation: false });
                 }.bind(this));
 
                 this._aCustomerFilters = [];
                 this._aStatusFilters = [];
+ 
 
             },
 
