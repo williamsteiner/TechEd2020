@@ -1,4 +1,4 @@
-changed manifest uri for json data in order to deploy and test
+Changed manifest uri for json data in order to deploy and test
 
 from "olduri": "./localService/sensors.json",
 to "uri": "https://cors-anywhere.herokuapp.com/https://docrepo.oldworldind.net/sensors.json"
