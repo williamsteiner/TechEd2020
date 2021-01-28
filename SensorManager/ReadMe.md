@@ -25,7 +25,7 @@ change target at bottom footer - left side to correct target env
  -- questions
 
  1) how do i change run-time target env?
-
+ans: can not change local since only 1 license of studio for IDE dev on b2b dev site
 
 -- tesing
 
