@@ -1,3 +1,5 @@
+Ver. 1.0.0
+
 Changed manifest uri for json data in order to deploy and test
 
 from "olduri": "./localService/sensors.json",
